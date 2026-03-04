@@ -1,0 +1,462 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Dark theme (default) ─────────────────────────────── */
+:root,
+:root[data-theme="dark"] {
+  --bg: #000000;
+  --sidebar-bg: #0A0A0B;
+  --card-bg: #111112;
+  --card-bg-2: #1C1C1E;
+  --border: #2C2C2E;
+  --border-soft: #1C1C1E;
+  --text: #F5F5F7;
+  --text-2: #AEAEB2;
+  --text-3: #636366;
+  --accent: #0A84FF;
+  --accent-glow: rgba(10, 132, 255, 0.18);
+  --gold: #FFD60A;
+  --silver: #AEAEB2;
+  --bronze: #FF9F0A;
+  --danger: #FF453A;
+  --success: #30D158;
+  /* chart compat */
+  --color-bg: var(--bg);
+  --color-surface: var(--card-bg);
+  --color-surface-2: var(--card-bg-2);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-muted: var(--text-2);
+  --color-gold: var(--gold);
+  --color-silver: var(--silver);
+  --color-bronze: var(--bronze);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--danger);
+  --sidebar-w: 232px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+}
+
+/* ── Light theme ─────────────────────────────────────── */
+:root[data-theme="light"] {
+  --bg: #F2F2F7;
+  --sidebar-bg: #FFFFFF;
+  --card-bg: #FFFFFF;
+  --card-bg-2: #F2F2F7;
+  --border: #D1D1D6;
+  --border-soft: #E5E5EA;
+  --text: #1C1C1E;
+  --text-2: #3C3C43;
+  --text-3: #8E8E93;
+  --accent: #007AFF;
+  --accent-glow: rgba(0, 122, 255, 0.12);
+  --gold: #CC8800;
+  --silver: #636366;
+  --bronze: #C44D00;
+  --danger: #FF3B30;
+  --success: #34C759;
+  --color-bg: var(--bg);
+  --color-surface: var(--card-bg);
+  --color-surface-2: var(--card-bg-2);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-muted: var(--text-2);
+  --color-accent: var(--accent);
+}
+
+/* ── Reset ───────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, 'SF Pro Display', 'DM Sans', Inter, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* ── Scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+/* ── Layout ──────────────────────────────────────────── */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border-soft);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 50;
+  transition: background 0.2s;
+}
+
+.main-content {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-height: 100vh;
+  background: var(--bg);
+  padding: 14px;
+  transition: background 0.2s;
+}
+
+/* ── Sidebar sections ────────────────────────────────── */
+.sidebar-brand {
+  padding: 16px 14px 12px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.sidebar-section {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.sidebar-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.year-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ── Stat tiles ──────────────────────────────────────── */
+.stat-tile {
+  background: var(--card-bg);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-md);
+  padding: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  transition: border-color 0.2s, transform 0.15s, background 0.2s;
+}
+
+.stat-tile:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.stat-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-2);
+  margin-top: 2px;
+}
+
+/* ── Chart card ─────────────────────────────────────── */
+.chart-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg);
+  padding: 14px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.chart-container:hover {
+  border-color: var(--accent);
+}
+
+.chart-title {
+  font-family: 'Bebas Neue', -apple-system, sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+.chart-subtitle {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+/* ── Season pill toggle ─────────────────────────────── */
+.pill-group {
+  display: flex;
+  gap: 3px;
+  background: var(--card-bg-2);
+  border-radius: 9px;
+  padding: 3px;
+}
+
+.pill {
+  flex: 1;
+  padding: 5px 6px;
+  border-radius: 7px;
+  border: none;
+  background: transparent;
+  color: var(--text-2);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  text-align: center;
+  font-family: inherit;
+}
+
+.pill.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.pill:hover:not(.active) {
+  background: var(--border);
+  color: var(--text);
+}
+
+/* ── Selects ────────────────────────────────────────── */
+.sb-select {
+  width: 100%;
+  background: var(--card-bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 12px;
+  padding: 7px 28px 7px 10px;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23636366' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 9px center;
+  background-color: var(--card-bg-2);
+  transition: border-color 0.15s;
+}
+
+.sb-select:focus {
+  border-color: var(--accent);
+}
+
+.sb-select.active {
+  border-left: 2px solid var(--accent);
+}
+
+.sb-select option {
+  background: var(--card-bg-2);
+  color: var(--text);
+}
+
+/* ── Dual range slider ──────────────────────────────── */
+.range-wrap {
+  position: relative;
+  height: 22px;
+  margin: 4px 0;
+}
+
+.range-track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.range-fill {
+  position: absolute;
+  top: 50%;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.range-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  pointer-events: none;
+  outline: none;
+}
+
+.range-input::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  pointer-events: all;
+  transition: transform 0.1s;
+}
+
+.range-input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.range-input::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff;
+  border: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  pointer-events: all;
+}
+
+/* ── Apply & Clear buttons ──────────────────────────── */
+.apply-btn {
+  width: 100%;
+  padding: 9px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  background: var(--card-bg-2);
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.apply-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.apply-btn.dirty {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 12px var(--accent-glow);
+}
+
+.apply-btn.dirty:hover {
+  opacity: 0.9;
+}
+
+.clear-btn {
+  width: 100%;
+  padding: 7px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  color: var(--text-3);
+  background: transparent;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.clear-btn:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+  background: rgba(255, 59, 48, 0.06);
+}
+
+/* ── Animations ─────────────────────────────────────── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.chart-enter {
+  animation: fadeSlideUp 0.38s ease forwards;
+}
