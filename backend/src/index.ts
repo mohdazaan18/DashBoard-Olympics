@@ -23,5 +23,5 @@ app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 loadData();
 
 app.listen(PORT, () => {
-  console.log(`🚀 Olympic API running on http://localhost:${PORT}`);
+  console.log(`🚀 Olympic API running on port ${PORT}`);
 });
